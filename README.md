@@ -1,4 +1,4 @@
-# 专用于Minecraft模组服务端启动脚本
+# 专用于Minecraft模组服务端的启动脚本
 ## 使用Powershell编写
 ### 因为目前还是我个人使用，所以内置了代理和硬编码Java路径
 ### 使用前（大概率）需要修改以下部分：
@@ -16,13 +16,11 @@ $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Ful
 
 非常简易的命令行调用方法，更换参数即可实现加载器（包括版本）修改，MC版本修改以及Java版本修改
 
-针对Forge/NeoForge的服务端安装设计的检测方式：
+已实现根据参数自动检测/下载/安装加载器，支持终端内无缝同意EULA
 
-检测是否存在对应的win_args.txt
+Forge/NeoForge端检测MC与加载器版本依靠win_args.txt，启动前会检查是否存在user_jvm_args.txt
 
-检测是否存在user_jvm_args.txt
-
-Fabric端检测MC版本依靠解析server.jar中的version.json文件
+Fabric端检测MC版本依靠解析server.jar中的version.json内容，检测加载器版本依靠fabric-loader-xxx.jar，启动前会检查是否存在fabric-server-launcher.jar与server.jar
 
 ### 待办（大概会忘）
 - [x] Fabric 检测机制有问题，需要完善
