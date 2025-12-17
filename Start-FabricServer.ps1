@@ -34,13 +34,16 @@ $Loaders = @{
     Fabric = @{
         InstallerUrl  = "https://maven.fabricmc.net/net/fabricmc/fabric-installer/$InstallerVersion/fabric-installer-$InstallerVersion.jar"
         InstallerPath = "fabric-installer-$InstallerVersion.jar"
+        LoaderPath = "libraries\net\fabricmc\fabric-loader\$($Minecraft.LoaderVersion)\fabric-loader-$($Minecraft.LoaderVersion).jar"
     }
 }
 
 #常量转换
 $InstallerUrl = $Loaders.Fabric.InstallerUrl
 $InstallerPath = Join-Path $PSScriptRoot $Loaders.Fabric.InstallerPath
-$ServerJarPath = Join-Path $PSScriptRoot "fabric-server-launch.jar"
+$FabricServerJarPath = Join-Path $PSScriptRoot "fabric-server-launch.jar"
+$ServerJarPath = Join-Path $PSScriptRoot "server.jar"
+$LoaderPath = Join-Path $PSScriptRoot $Loaders.Fabric.LoaderPath
 
 $EulaPath = Join-Path $PSScriptRoot "eula.txt"
 #安装服务端
@@ -55,7 +58,7 @@ function Install-Server {
 #启动服务端
 function Start-Server {
     Write-Host "STARTING SERVER"
-    & $JavaPath -Xmx2G -jar fabric-server-launch.jar nogui
+    & $JavaPath -Xmx2G -jar $FabricServerJarPath nogui
 }
 #按任意键停止服务端
 function Stop-Server {
@@ -96,15 +99,59 @@ function Edit-Eula {
     }
     return $false
 }
+
+Add-Type -AssemblyName System.IO.Compression
+
+function Get-MinecraftVersionFromServerJar {
+    if (-not (Test-Path $ServerJarPath)) {
+        return $false
+    }
+
+    $stream = [System.IO.File]::OpenRead($ServerJarPath)
+    try {
+        $zip = [System.IO.Compression.ZipArchive]::new(
+            $stream,
+            [System.IO.Compression.ZipArchiveMode]::Read
+        )
+        try {
+            $entry = $zip.GetEntry("version.json")
+            if (-not $entry) {
+                return $false
+            }
+
+            $reader = New-Object System.IO.StreamReader($entry.Open())
+            try {
+                $json = $reader.ReadToEnd()
+            }
+            finally {
+                $reader.Close()
+            }
+
+            $versionInfo = $json | ConvertFrom-Json
+            return $versionInfo.id
+        }
+        finally {
+            $zip.Dispose()
+        }
+    }
+    finally {
+        $stream.Close()
+    }
+}
+
 #开始运行
 if (-not (Test-Path $JavaPath)) {
     Write-Error "JAVA NOT FOUND, STOPPING"
     Stop-Server
     exit 1
 }
-if (-not (Test-Path $ServerJarPath)) {
+
+$DetectedVersion = Get-MinecraftVersionFromServerJar
+
+if (-not (Test-Path $LoaderPath) -or -not ($Version -eq $DetectedVersion)) {
     Install-Server
-    if (-not (Test-Path $ServerJarPath)) {
+    $DetectedVersion = Get-MinecraftVersionFromServerJar
+    if (-not (Test-Path $LoaderPath) -or -not ($Version -eq $DetectedVersion)) {
         Write-Error "SERVER INSTALL FAILED, STOPPING"
         Stop-Server
         exit 1
@@ -113,6 +160,11 @@ if (-not (Test-Path $ServerJarPath)) {
 
 if (-not (Edit-Eula)) {
     Write-Error "EULA NOT ACCEPTED, STOPPING"
+    Stop-Server
+    exit 1
+}
+if (-not (Test-Path $FabricServerJarPath) -or -not (Test-Path $ServerJarPath)) {
+    Write-Error "SERVER JAR NOT FOUND, STOPPING"
     Stop-Server
     exit 1
 }

@@ -22,8 +22,8 @@ $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Ful
 
 检测是否存在user_jvm_args.txt
 
-Fabric端检测机制还不够完善，目前只能一次性使用
+Fabric端检测MC版本依靠解析server.jar中的version.json文件
 
 ### 待办（大概会忘）
-- [ ] Fabric 检测机制有问题，需要完善
+- [x] Fabric 检测机制有问题，需要完善
 - [ ] server.properties 预修改/覆盖修改
