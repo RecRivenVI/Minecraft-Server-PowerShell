@@ -1,1 +1,0 @@
-pwsh .\Start-ForgeServer.ps1 -Version 1.21.1 -Loader NeoForge -LoaderVersion 21.1.216 -JavaVersion 21
