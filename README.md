@@ -22,11 +22,11 @@ $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Ful
 示例：
 
 ```powershell
-pwsh .\Start-ForgeServer.ps1 -Version 1.20.1 -Loader Forge -LoaderVersion 47.4.13 -JavaVersion 21 -ImmediatelyExit
+pwsh .\Start-ForgeServer.ps1 -Version 1.20.1 -Loader Forge -LoaderVersion 47.4.10 -JavaVersion 21 -ImmediatelyExit
 ```
 
 ```powershell
-pwsh .\Start-FabricServer.ps1 -Version 1.21.1 -LoaderVersion 0.18.3 -JavaVersion 21 -ImmediatelyExit
+pwsh .\Start-FabricServer.ps1 -Version 1.21.11 -LoaderVersion 0.18.3 -JavaVersion 21 -ImmediatelyExit
 ```
 
 Forge 与 Fabric 都必须指定 Minecraft 版本与加载器版本，Forge 端还必须指定使用 Forge 或者 NeoForge 加载器
