@@ -60,7 +60,7 @@ function Install-Server {
 #启动服务端
 function Start-Server {
     Write-Host "STARTING SERVER"
-    & $JavaPath -Xmx2G -jar $FabricServerJarPath nogui
+    & $JavaPath -Xmx8G -jar $FabricServerJarPath nogui
 }
 #按任意键停止服务端
 function Stop-Server {
