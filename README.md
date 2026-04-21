@@ -2,15 +2,11 @@
 
 ## 使用 Powershell 编写
 
-### 因为目前还是我个人使用，所以内置了代理和硬编码 Java 路径
+### 因为目前还是我个人使用，所以硬编码了 Java 路径
 
 ### 使用前（大概率）需要修改以下部分：
 
 ```powershell
-#代理
-$env:HTTP_PROXY = "http://127.0.0.1:7897"
-$env:HTTPS_PROXY = "http://127.0.0.1:7897"
-
 #Java绝对路径
 $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Full\bin\java.exe"
 ```
@@ -22,16 +18,16 @@ $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Ful
 示例：
 
 ```powershell
-pwsh .\Start-ForgeServer.ps1 -Version 1.20.1 -Loader Forge -LoaderVersion 47.4.10 -JavaVersion 21 -ImmediatelyExit
+pwsh .\Start-ForgeServer.ps1 -Version 26.1.2 -Loader NeoForge -LoaderVersion 26.1.2.22-beta -JavaVersion 25 -ImmediatelyExit
 ```
 
 ```powershell
-pwsh .\Start-FabricServer.ps1 -Version 1.21.11 -LoaderVersion 0.18.3 -JavaVersion 21 -ImmediatelyExit
+pwsh .\Start-FabricServer.ps1 -Version 26.1.2 -LoaderVersion 0.19.2 -JavaVersion 25 -ImmediatelyExit
 ```
 
 Forge 与 Fabric 都必须指定 Minecraft 版本与加载器版本，Forge 端还必须指定使用 Forge 或者 NeoForge 加载器
 
-Java 版本如果不指定，默认为 21
+Java 版本如果不指定，默认为 25
 
 已实现根据参数自动检测/下载/安装加载器，并支持终端内无缝同意 EULA，支持通过添加 -ImmediatelyExit 参数实现服务端关闭后立即退出脚本
 

@@ -1,4 +1,3 @@
-#请在外部调用，模板：pwsh .\Start-FabricServer.ps1 -Version 1.21.11 -LoaderVersion 0.18.3 -JavaVersion 21 -ImmediatelyExit
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -9,10 +8,10 @@ param (
     [string]$LoaderVersion,
 
     [ValidateNotNullOrEmpty()]
-    [string]$InstallerVersion = "1.1.0",
+    [string]$InstallerVersion = "1.1.1",
 
     [ValidateNotNullOrEmpty()]
-    [string]$JavaVersion = "21",
+    [string]$JavaVersion = "25",
 
     [switch]$ImmediatelyExit
 )

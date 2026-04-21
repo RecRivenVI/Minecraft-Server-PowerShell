@@ -1,4 +1,3 @@
-#请在外部调用，模板：pwsh .\Start-ForgeServer.ps1 -Version 1.20.1 -Loader Forge -LoaderVersion 47.4.10 -JavaVersion 21 -ImmediatelyExit
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -13,7 +12,7 @@ param (
     [string]$LoaderVersion,
 
     [ValidateNotNullOrEmpty()]
-    [string]$JavaVersion = "21",
+    [string]$JavaVersion = "25",
 
     [switch]$ImmediatelyExit
 )
