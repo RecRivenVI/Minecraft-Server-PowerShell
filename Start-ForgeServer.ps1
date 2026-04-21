@@ -25,10 +25,6 @@ $Minecraft = @{
     JavaVersion   = $JavaVersion
 }
 
-#代理
-$env:HTTP_PROXY = "http://127.0.0.1:7897"
-$env:HTTPS_PROXY = "http://127.0.0.1:7897"
-
 #Java绝对路径
 $JavaPath = "C:\Program Files\BellSoft\LibericaJDK-$($Minecraft.JavaVersion)-Full\bin\java.exe"
 
