@@ -55,4 +55,4 @@ Fabric 端检测 Minecraft 版本依靠解析 server.jar 中的 version.json 内
 - [![All the Mods 9](http://cf.way2muchnoise.eu/715572.svg "ATM9") All The Mods 9 - ATM9](https://www.curseforge.com/minecraft/modpacks/all-the-mods-9)
 - [![All the Mods 10](http://cf.way2muchnoise.eu/925200.svg "ATM10") All The Mods 10 - ATM10](https://www.curseforge.com/minecraft/modpacks/all-the-mods-10)
 
-### Fabric 端解析 server.jar 逻辑由 Microsfot Copilot 生成
+### Fabric 端解析 server.jar 逻辑由 Microsoft Copilot 生成
